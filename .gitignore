@@ -18,6 +18,12 @@ tailwind.config.js
 .env.development.local
 .env.test.local
 .env.production.local
+.env
+misc.xml
+modules.xml
+Project_Default.xml
+server.iml
+vcs.xml
 
 npm-debug.log*
 yarn-debug.log*
