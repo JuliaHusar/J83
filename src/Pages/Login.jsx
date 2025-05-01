@@ -1,6 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
-import {validateToken} from "../ValidateToken";
+import {backendRequests} from "../BackendRequests";
 const Login = () => {
 
     const [username, setUsername] = useState('');
@@ -12,7 +12,7 @@ const Login = () => {
             password: password
         }).then(response => {
             if (response.status === 200) {
-                validateToken(response.data).then(r => {
+                backendRequests(response.data).then(r => {
                     if (r.status === 200) {
                         localStorage.setItem('token', response.data);
                         window.location.href = '/home';
