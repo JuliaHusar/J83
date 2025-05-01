@@ -100,7 +100,8 @@ def get_report():
 def get_summary():
     # Gets Lux In values for Summary
     lux_in = get_data("lux-in")
-    return jsonify({'lux_in': lux_in})
+    biomass_data = get_biomass_data()
+    return jsonify({'lux_in': lux_in, 'biomass_data': biomass_data})
 
 
 def get_data(value_type):
@@ -123,6 +124,17 @@ def get_data(value_type):
     )
     mapped_data = [dict(zip(columns, row)) for row in sort_data]
     return mapped_data
+
+
+def get_biomass_data():
+    db_instance = connect_to_db()
+    if db_instance is None:
+        return {"error": "Database connection failed"}
+    cursor = db_instance.cursor()
+    cursor.execute("SELECT * FROM solardb.`biomass_g_l`")
+    columns = [column[0] for column in cursor.description]
+    response = cursor.fetchall()
+    return response
 
 
 def generate_jwt_token(username, password):
