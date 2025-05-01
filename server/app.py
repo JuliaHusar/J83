@@ -31,7 +31,7 @@ userList = [
 def connect_to_db():
     try:
         db_connect = mysql.connector.connect(
-            host=os.getenv("HOST"),
+            host=os.getenv("DIGITAL_OCEAN_HOST"),
             port=25060,
             user=os.getenv("USERNAME"),
             password=os.getenv("PASSWORD"),
