@@ -121,12 +121,7 @@ def get_data(value_type):
         response,
         key=lambda x: datetime.datetime.strptime(x[0], "%m/%d/%Y %I:%M:%S %p")
     )
-    filtered_data = [
-        row for row in sort_data
-        if datetime.datetime.strptime(row[0], "%m/%d/%Y %I:%M:%S %p").minute % 15 == 0
-           and datetime.datetime.strptime(row[0], "%m/%d/%Y %I:%M:%S %p").second == 0
-    ]
-    mapped_data = [dict(zip(columns, row)) for row in filtered_data]
+    mapped_data = [dict(zip(columns, row)) for row in sort_data]
     return mapped_data
 
 
