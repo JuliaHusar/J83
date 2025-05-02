@@ -1,6 +1,6 @@
 import {useState} from "react";
 import axios from "axios";
-import {backendRequests} from "../BackendRequests";
+import {backendRequests} from "../HelperFunctions/BackendRequests";
 const Login = () => {
 
     const [username, setUsername] = useState('');

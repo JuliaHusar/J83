@@ -88,10 +88,12 @@ def get_report():
     # Aggregation can be added to make data more readable for frontend
     co2_in = get_data("co2-in")
     co2_out = get_data("co2-out")
+    lux_in = get_data("lux-in")
 
     return jsonify({
         'co2_in': co2_in,
-        'co2_out': co2_out
+        'co2_out': co2_out,
+        'lux_in': lux_in
     })
 
 
@@ -99,9 +101,9 @@ def get_report():
 @cross_origin()
 def get_summary():
     # Gets Lux In values for Summary
-    lux_in = get_data("lux-in")
+    # lux_in = get_data("lux-in")
     biomass_data = get_biomass_data()
-    return jsonify({'lux_in': lux_in, 'biomass_data': biomass_data})
+    return jsonify({'biomass_data': biomass_data})
 
 
 def get_data(value_type):
@@ -132,9 +134,14 @@ def get_biomass_data():
         return {"error": "Database connection failed"}
     cursor = db_instance.cursor()
     cursor.execute("SELECT * FROM solardb.`biomass_g_l`")
-    columns = [column[0] for column in cursor.description]
     response = cursor.fetchall()
-    return response
+    columns = [column[0] for column in cursor.description]
+    sort_data = sorted(
+        response,
+        key=lambda x: datetime.datetime.strptime(x[0], "%Y-%m-%d")
+    )
+    mapped_data = [dict(zip(columns, row)) for row in sort_data]
+    return mapped_data
 
 
 def generate_jwt_token(username, password):

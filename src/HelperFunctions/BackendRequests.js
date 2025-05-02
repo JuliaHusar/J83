@@ -27,3 +27,12 @@ export async function getSummary(){
         },
     )
 }
+
+export async function convertToDate(dateString) {
+    const dateObject = new Date(dateString);
+    return dateObject.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
