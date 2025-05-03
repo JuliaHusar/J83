@@ -7,7 +7,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const handleLogin = (e) => {
         e.preventDefault();
-        axios.post('http://127.0.0.1:5000/api/login', {
+        axios.post('api/login', {
             username: username,
             password: password
         }).then(response => {

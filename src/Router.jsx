@@ -14,7 +14,7 @@ const Router = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
         console.log('called')
-        axios.post('http://127.0.0.1:5000/api/validate', {}, {
+        axios.post('/api/validate', {}, {
             headers: { Authorization: token }
         })
             .then(res => setIsAuthenticated(res.status === 200))
